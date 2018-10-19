@@ -36,21 +36,21 @@ module.exports = function ( grunt ) {
 									$file_content     = combine_helper.append( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
 									$file_content     = combine_helper.inline( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
 									$file_content     = combine_helper.prepend( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
-									$append           = ( $append === '' ) ? $file_content : $append + '\r' + $file_content;
-									//return_file       = return_file.replace( $m[ 1 ], '' );
+									$append           = $append + $file_content;
+									return_file       = return_file.replace( $m[ 1 ], '' );
 								} catch ( e ) {
 									grunt.log.warn( 'File ' + JSON.stringify( $m ) + ' Not Found' );
 								}
 							}
 						}
-						return $append + '\r' + return_file;
+						return $append + return_file;
 					}
 					return return_file;
 				},
 				prepend: function ( file_source, return_file, $abs ) {
 					if ( false !== $this.prepend_regex ) {
 						var $m;
-						var $prepend = ' ';
+						var $prepend = '';
 						var $regex   = new RegExp( $this.prepend_regex );
 						while ( ( $m = $regex.exec( file_source ) ) !== null ) {
 							if ( $m.index === $regex.lastIndex ) {
@@ -62,8 +62,8 @@ module.exports = function ( grunt ) {
 									$file_content     = combine_helper.append( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
 									$file_content     = combine_helper.inline( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
 									$file_content     = combine_helper.prepend( $file_content, $file_content, path.dirname( $abs + '/' + $m[ 3 ] ) );
-									$prepend          = ( '' === $prepend ) ? $file_content : $prepend + '\r' + $file_content;
-									//return_file       = return_file.replace( $m[ 1 ], '' );
+									$prepend          = $prepend + $file_content;
+									return_file       = return_file.replace( $m[ 1 ], '' );
 								} catch ( e ) {
 									grunt.log.warn( 'File ' + JSON.stringify( $m ) + ' Not Found' );
 								}
@@ -125,26 +125,28 @@ module.exports = function ( grunt ) {
 				grunt.log.error( 'File Source Not Found ' + JSON.stringify( Mfile ) );
 				return false;
 			}
-			var src = Mfile.src.filter( function ( filepath ) {
+			var $output = '';
+			var src     = Mfile.src.filter( function ( filepath ) {
 				if ( !grunt.file.exists( filepath ) ) {
 					grunt.log.warn( 'Source File"' + filepath + '" not found' );
 					return false;
 				}
 				return true;
-			} ).map( function ( filepath, i ) {
-				if ( grunt.file.isDir( filepath ) ) {
+			} ).forEach( function ( file ) {
+				if ( grunt.file.isDir( file ) ) {
 					return;
 				}
-				var file_source = grunt.file.read( filepath ),
+
+				var file_source = grunt.file.read( file ),
 					return_file = file_source,
-					$abs        = path.dirname( filepath );
+					$abs        = path.dirname( file );
 				return_file     = combine_helper.inline( file_source, return_file, $abs );
 				return_file     = combine_helper.append( file_source, return_file, $abs );
 				return_file     = combine_helper.prepend( file_source, return_file, $abs );
-				return return_file;
+				$output         = $output + return_file;
 			} );
 
-			grunt.file.write( Mfile.dest, combine_helper.array_filter( src, combine_helper.filter_help ) );
+			grunt.file.write( Mfile.dest, $output );
 		} );
 	} );
 };

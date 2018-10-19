@@ -55,6 +55,11 @@ module.exports = function ( grunt ) {
 					'tmp/all_test.js': [ 'test/fixtures/append.js', 'test/fixtures/inline.js', 'test/fixtures/prepend.js', 'test/fixtures/nested.js' ]
 				}
 			},
+			all: {
+				files: {
+					'tmp/all.js': [ 'test/fixtures/*.js' ],
+				}
+			}
 		},
 
 	} );
