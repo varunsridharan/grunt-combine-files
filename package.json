@@ -1,7 +1,7 @@
 {
   "name": "grunt-combine-files",
   "description": "This plugin will allow you to combine multiple JS files using (@grunt-append / @grunt-prepend / @grunt-inline)",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://github.com/varunsridharan/grunt-combine-files",
   "author": {
     "name": "Varun Sridharan",
