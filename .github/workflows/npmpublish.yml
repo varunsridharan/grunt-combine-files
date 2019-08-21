@@ -20,10 +20,9 @@ jobs:
       - run: git config --global user.email "varunsridharan23@gmail.com"
       - run: git config --global user.name "Varun Sridharan"
       - run: git remote set-url origin https://${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
-      - run: git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
       - run: npm version patch
       - run: git add -A
-      - run: git push --set-upstream origin HEAD:master -f
+      - run: git push origin HEAD:master
       - run: npm publish ./
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}} 
