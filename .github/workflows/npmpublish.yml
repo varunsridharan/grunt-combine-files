@@ -22,6 +22,10 @@ jobs:
       - run: git config --global user.name "Varun Sridharan"
       - run: git checkout ${GITHUB_REF}
       - run: npm version patch
+      - run: echo ${GITHUB_BASE_REF}
+      - run: echo ${GITHUB_HEAD_REF}
+      - run: echo $GITHUB_BASE_REF
+      - run: echo $GITHUB_HEAD_REF
       - run: git add -A
       - run: git commit -m "NPM Publish"
       - run: git push origin ${GITHUB_REF} -f
