@@ -21,7 +21,7 @@ jobs:
       - run: git config --global user.name "Varun Sridharan"
       - run: npm version patch
       - run: git push "https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" HEAD:master
-      - run: npm publish ./
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}} 
-          GITHUB_TOKEN: ${{GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm publish ./
