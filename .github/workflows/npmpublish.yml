@@ -23,7 +23,7 @@ jobs:
       - run: npm version patch
       - run: git add -A
       - run: git remote set-url origin https://${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
-      - run: git push -u origin master -f
+      - run: git push origin master -f
       - run: npm publish ./
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}} 
