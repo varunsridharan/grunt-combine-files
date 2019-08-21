@@ -22,7 +22,7 @@ jobs:
       - run: git config --global user.name "Varun Sridharan"
       - run: git checkout ${GITHUB_HEAD_REF}
       - run: npm version patch
-      - run: git push origin ${GITHUB_HEAD_REF} -f
+      - run: git push origin ${GITHUB_BASE_REF} -f
       - run: npm publish ./
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}} 
