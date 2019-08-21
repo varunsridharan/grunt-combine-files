@@ -20,6 +20,7 @@ jobs:
       - run: git config --global user.email "varunsridharan23@gmail.com"
       - run: git config --global user.name "Varun Sridharan"
       - run: npm version patch
+      - run: git push --help
       - run: git push --set-upstream origin HEAD:master -f
       - run: npm publish ./
         env:
