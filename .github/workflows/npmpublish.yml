@@ -26,6 +26,7 @@ jobs:
       - run: git ls-files
       - run: git add -A
       - run: git add -u
+      - run: git checkout
       - run: git commit -m "NPM Publish"
       - run: git push origin ${GITHUB_REF} -f
       - run: npm publish ./
