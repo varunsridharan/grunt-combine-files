@@ -17,12 +17,12 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
+      - run: git remote set-url origin https://${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
       - run: git config --global user.email "varunsridharan23@gmail.com"
       - run: git config --global user.name "Varun Sridharan"
       - run: git pull origin master
       - run: npm version patch
       - run: git add -A
-      - run: git remote set-url origin https://${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
       - run: git push origin master -f
       - run: npm publish ./
         env:
