@@ -24,6 +24,7 @@ jobs:
       - run: npm version patch
       - run: git add -A
       - run: ls -la
+      - run: cat package.json
       - run: git push origin master -f
       - run: npm publish ./
         env:
